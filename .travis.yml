@@ -5,3 +5,12 @@ services:
 script:
   - docker build -t neoformalex/node .
   - docker images neoformalex/node
+
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+deploy:
+  provider: script
+  script: docker push neoformalex/node
+  on:
+    branch: master
